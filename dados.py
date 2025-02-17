@@ -32,26 +32,28 @@ class DadosPersonagens:
                 self.affiliations.append('Without affiliations')
 
     def translateName(self):
-        listNameTranslates = []
         if len(self.names) == 0:
-            self.filterNames()
+            raise "Não existem dados para serem traduzidos, execute o método filterName primero"
+        
+        listNameTranslates = []
         for name in self.names:
             name_translate = self.translator.translate(name)
             listNameTranslates.append(name_translate)
         return listNameTranslates
     
     def translateAffiliation(self):
-        listAffiliationTranslates = []
         if len(self.affiliations) == 0:
-            self.filterAffiliation()
+            raise "Não existem dados para serem traduzidos, execute o método filterAffiliation primero"
+        
+        listAffiliationTranslates = []
         for affiliation in self.affiliations:
             name_translate = self.translator.translate(affiliation)
             listAffiliationTranslates.append(name_translate)
         return listAffiliationTranslates
     
     def listCharacters(self):
-        listName = listName = self.translateName()
-        listAffiliation = listAffiliation = self.translateAffiliation()
+        listName = self.translateName()
+        listAffiliation = self.translateAffiliation()
         nameAndAffiliation = list(zip(listName, listAffiliation))
-        return nameAndAffiliation
+        return print(nameAndAffiliation)
         
