@@ -30,16 +30,6 @@ class DadosPersonagens:
                 self.affiliations.append(character["affiliation"])
             except KeyError:    
                 self.affiliations.append('Without affiliations')
-
-    def translateName(self):
-        if len(self.names) == 0:
-            raise "Não existem dados para serem traduzidos, execute o método filterName primero"
-        
-        listNameTranslates = []
-        for name in self.names:
-            name_translate = self.translator.translate(name)
-            listNameTranslates.append(name_translate)
-        return listNameTranslates
     
     def translateAffiliation(self):
         if len(self.affiliations) == 0:
@@ -52,8 +42,9 @@ class DadosPersonagens:
         return listAffiliationTranslates
     
     def listCharacters(self):
-        listName = self.translateName()
+        if len(self.names) == 0:
+            self.filterNames()
         listAffiliation = self.translateAffiliation()
-        nameAndAffiliation = list(zip(listName, listAffiliation))
+        nameAndAffiliation = list(zip(self.names, listAffiliation))
         return print(nameAndAffiliation)
         
