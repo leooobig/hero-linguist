@@ -29,7 +29,31 @@ class DadosPersonagens:
             try:
                 self.affiliations.append(character["affiliation"])
             except KeyError:    
-                self.affiliations.append('Without affiliations')
+                self.affiliations.append('Sem afiliados')
+    
+    enemies = []    
+    def filterEnemies(self):
+        for character in self.data:
+            try:
+                if len(character["enemies"]) == 0:
+                    character["enemies"] = ["Sem inimigos"]
+                    self.enemies.append(character["enemies"])
+                    continue
+                self.enemies.append(character["enemies"])
+            except KeyError:    
+                self.enemies.append('Sem inimigos')
+    
+    allies = []    
+    def filterAllies(self):
+        for character in self.data:
+            try:
+                if len(character["allies"]) == 0:
+                    character["allies"] = ["Sem aliados"]
+                    self.allies.append(character["allies"])
+                    continue
+                self.allies.append(character["allies"])
+            except KeyError:    
+                self.allies.append('Sem aliados')
     
     def translateAffiliation(self):
         if len(self.affiliations) == 0:
@@ -42,9 +66,10 @@ class DadosPersonagens:
         return listAffiliationTranslates
     
     def listCharacters(self):
-        if len(self.names) == 0:
-            self.filterNames()
-        listAffiliation = self.translateAffiliation()
-        nameAndAffiliation = list(zip(self.names, listAffiliation))
-        return print(nameAndAffiliation)
+        self.filterNames()
+        self.filterEnemies()
+        self.filterAllies()
+        affilation_translate = self.translateAffiliation()
+        nameAndAffiliation = list(zip(self.names, affilation_translate, self.allies, self.enemies))
+        return nameAndAffiliation
         
