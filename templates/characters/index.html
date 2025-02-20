@@ -1,19 +1,37 @@
-<!DOCTYPE html>
+{% load static %}
+
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.css' %}">
     <title>Personagem</title>
 </head>
+
 <body>
     <h1>Personagens do Avatar</h1>
-    {% for nome, afiliacao, aliados, inimigos in personagem %}
-        <ul>
-            <li><strong>Nome: {{ nome }} </strong></li>
-            <li><strong>Afiliação: {{ afiliacao }}</strong></li>
-            <li><strong>Inimigos: {% for inimigo in inimigos %} {{ inimigo }} | {% endfor %}  </strong></li>
-            <li><strong>Aliados: {% for aliado in aliados %} {{ aliado }} | {% endfor %} </strong></li>
-        </ul>
-    {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Afiliação</th>
+                <th scope="col">Inimigos</th>
+                <th scope="col">Aliados</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for personagem in page.object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ personagem.nome }}</td>
+                <td>{{ personagem.afiliacao }}</td>
+                <td>{{ personagem.inimigos_str }}</td>
+                <td>{{ personagem.aliados_str }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
